@@ -2,29 +2,29 @@
 using WebAPI1toN.Interfaces;
 using WebAPI1toN.SecuSearchSDK3;
 
-// MVC ASP.NET Core 6 Web API -> 9/16/22
-// SecuSearch needs to be a stand alone service, that is always ready to go
-// WebAPI1toN, needs to have many individual FP DBs; however, most of
-// the installations, require only a single FP DB.
-
-namespace WebAPI1toN.Services {
+namespace WebAPI1toN.Services
+{
     public class SystemSecuSearch3 : ISecuSearch3
     {
-        public SecuSearch _SS3 { get; set; }    
+        public SecuSearch _SS3 { get; set; }
 
         public SSParam _SSParam { get; set; }
+
         public SystemSecuSearch3()
         {
             _SS3 = new SecuSearch();
-            SSParam param = new SSParam();
-            param.CandidateCount = 10;
-            param.Concurrency = 0;
-            param.LicenseFile = "";
-            param.EnableRotation = true;
+            SSParam param = new SSParam
+            {
+                CandidateCount = 10,
+                Concurrency = 0,
+                LicenseFile = "",
+                EnableRotation = true
+            };
             _SSParam = param;
 
             _SS3.InitializeEngine(param);
         }
+
         ~SystemSecuSearch3()
         {
             _SS3.TerminateEngine();
@@ -76,9 +76,9 @@ namespace WebAPI1toN.Services {
         }
 
         public SSError SaveFPDB(String filename)
-        { 
-            return _SS3.SaveFPDB(filename); 
-        } 
+        {
+            return _SS3.SaveFPDB(filename);
+        }
 
         public SSError LoadFPDB(String filename)
         {
@@ -126,7 +126,5 @@ namespace WebAPI1toN.Services {
             string str = _SS3.GetVersion();
             return Marshal.StringToCoTaskMemAnsi(str);
         }
-
-
     } // end class SystemSecuSearch3
 }
