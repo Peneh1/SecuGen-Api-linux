@@ -1,0 +1,47 @@
+#*************************************************************
+#*
+#* Author :      SecuGen Corporation
+#* Description : SGD2 Makefile
+#* Copyright(c): 2004 SecuGen Corporation, All rights reserved
+#* History :
+#* date        person   comments
+#* ======================================================
+#*
+#*
+#*************************************************************
+
+CFLAGS = -D__UNIXLINUX -std=c++14 -fno-stack-protector
+INCPATH = -I./ -I../include
+
+OBJS=	mdb.o \
+		sseapitest_sample.o
+#		loadsse.o \
+
+SRCS=	mdb.cpp \
+		sseapitest_sample.cpp
+#		loadsse.cpp \
+
+TARGET = $(PORT)/sseapitest
+
+all : $(TARGET)
+
+$(TARGET) : $(OBJS)
+	$(CXX) -o $@ $(OBJS) $(LIBS) -lsecusearchapi -lpthread
+
+.cc.o :
+	$(CXX) $(CFLAGS) $(INCPATH) -c $<
+
+.c.o :
+	$(CXX) $(CFLAGS) $(INCPATH) -c $<
+
+.cpp.o :
+	$(CXX) $(CFLAGS) $(INCPATH) -c $<
+
+dep :
+	gccmakedep $(INCPATH) $(SRCS)
+
+clean :
+	rm -rf *.o $(PORT)
+	mkdir $(PORT)
+
+
