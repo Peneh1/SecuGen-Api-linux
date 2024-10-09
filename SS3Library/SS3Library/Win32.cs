@@ -5,16 +5,7 @@ namespace WebAPI1toN.SecuSearchSDK3
 {
     internal class Win32
     {
-#if WINDOWS
-        [DllImport("kernel32.dll", CharSet = CharSet.Ansi, SetLastError = true)]
-        public static extern IntPtr LoadLibrary(string lpLibFileName);
 
-        [DllImport("kernel32.dll", CharSet = CharSet.Ansi)]
-        public static extern bool FreeLibrary(IntPtr hModule);
-
-        [DllImport("kernel32.dll", CharSet = CharSet.Ansi)]
-        public static extern IntPtr GetProcAddress(IntPtr hModule, string lpProcName);
-#else
         // Linux alternatives can go here
         public static IntPtr LoadLibrary(string lpLibFileName)
         {
@@ -33,6 +24,6 @@ namespace WebAPI1toN.SecuSearchSDK3
             // Implement logic for getting a procedure address on Linux
             throw new NotImplementedException("GetProcAddress not implemented for Linux.");
         }
-#endif
+
     }
 }
