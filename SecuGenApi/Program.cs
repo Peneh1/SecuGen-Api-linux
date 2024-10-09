@@ -6,7 +6,6 @@ using WebAPI1toN.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
 
 // Core SecuSearch library
@@ -16,12 +15,11 @@ builder.Services.AddSingleton<IImageContainer, ImageContainer>();
 // Holds the sessionid, which is the key to load/saving WebSearch DB to disk.
 builder.Services.AddSingleton<IDataPartitioning, DataPartitioning>();
 
-
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-//Register dapper in scope    
+// Register Dapper in scope    
 builder.Services.AddScoped<IDapper, Dapperr>();
 
 // Add your logging handler
@@ -41,5 +39,8 @@ if (app.Environment.IsDevelopment())
 app.UseAuthorization();
 
 app.MapControllers();
+
+// Listen on all network interfaces
+app.Urls.Add("http://0.0.0.0:5167"); // Added line
 
 app.Run();
